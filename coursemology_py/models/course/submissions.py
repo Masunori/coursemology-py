@@ -72,7 +72,7 @@ class SubmissionUserInfo(BaseModel):
 class AssessmentSubmission(BaseModel):
     id: int | None = None
     workflow_state: str = Field(..., alias="workflowState")
-    grade: int | None = None
+    grade: float | None = None
     points_awarded: int | None = Field(None, alias="pointsAwarded")
     submitted_at: datetime | None = Field(None, alias="submittedAt")
     course_user: SubmissionUserInfo = Field(..., alias="courseUser")
@@ -292,7 +292,7 @@ class AssessmentInfo(BaseModel):
     autograded: bool
     skippable: bool
     show_mcq_mrq_solution: bool = Field(..., alias="showMcqMrqSolution")
-    show_rubric_to_students: bool = Field(..., alias="showRubricToStudents")
+    show_rubric_to_students: bool | None = Field(..., alias="showRubricToStudents")
     time_limit: int | None = Field(None, alias="timeLimit")
     delayed_grade_publication: bool = Field(..., alias="delayedGradePublication")
     tabbed_view: bool = Field(..., alias="tabbedView")
@@ -333,7 +333,7 @@ class TopicInfo(BaseModel):
 
 class AnnotationInfo(BaseModel):
     file_id: int = Field(..., alias="fileId")
-    topics: list[dict[str, str | int]] = Field(default_factory=list)
+    topics: list[dict[str, str | int | list]] = Field(default_factory=list)
 
 class AnswerHistory(BaseModel):
     id: int
@@ -352,7 +352,7 @@ class SubmissionEditData(BaseModel):
     answers: list[AnyAnswerInfo]
     topics: list[TopicInfo]
     annotations: list[AnnotationInfo]
-    posts: list[dict[str, str | int | bool]] = Field(default_factory=list)
+    posts: list[dict[str, str | int | bool | dict | None]] = Field(default_factory=list)
     history: dict[str, list[QuestionHistory]] = Field(default_factory=dict)
     get_help_counts: list[dict[str, str | int]] = Field(default_factory=list, alias="getHelpCounts")
 

@@ -161,7 +161,7 @@ class Attachment(BaseModel):
 class TextResponseAnswer(AnswerBase):
     question_type: Literal["TextResponse"] = Field(..., alias="questionType")
     question: QuestionBase | None = None
-    answer_text: str = Field(..., alias="answerText")
+    answer_text: str = Field(..., default_factory=str, alias="answerText")
     attachments: list[Attachment] = Field(default_factory=list)
     explanation: Explanation
     latest_answer: "TextResponseAnswer | None" = Field(None, alias="latestAnswer")

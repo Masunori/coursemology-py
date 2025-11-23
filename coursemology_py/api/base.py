@@ -71,6 +71,8 @@ class BaseAPI:
             if not response.content:
                 return None
             json_data = response.json()
+            # from pprint import pprint
+            # pprint(json_data)
             # print("RESPONSE:", json_data)
             if response_model:
                 return TypeAdapter(response_model).validate_python(json_data)
